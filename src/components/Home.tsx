@@ -16,7 +16,7 @@ interface IUser {
 const useStyles = makeStyles({
   table: {
     minWidth: 300,
-  },
+    },
 });
 
 
@@ -25,8 +25,8 @@ export const APIForm: React.FC = () => {
   const [filterInput, setFilterInput] = useState("");
   const handleFilterChange = (e:any) => {
     const value = e.target.value || undefined;
-    
-    setFilterInput(value);  
+        setFilterInput(value); 
+    console.log("handlefilterchange", value) 
   };
 
   const [page, setPage] = useState(0);
@@ -34,11 +34,14 @@ export const APIForm: React.FC = () => {
 
   const handleChangePage = (event:any, newPage:any) => {
     setPage(newPage);
+    console.log("handleChangePage====>",newPage)
+
   };
 
   const handleChangeRowsPerPage = (event:any) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
+    console.log("handleChangeRowsPerPage====>",event.target.value)
   };
 
 useEffect(() => {
@@ -54,7 +57,8 @@ useEffect(() => {
 const classes = useStyles();
 return (
     <div>
-      <input
+      <input 
+      
   value={filterInput}
   onChange={handleFilterChange}
   placeholder={"Search name"}
