@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button'
 import { FormControl } from '@material-ui/core';
 import { useHistory } from "react-router-dom";
 
+
 export const LoginForm: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -13,6 +14,10 @@ export const LoginForm: React.FC = () => {
   //   alert(`${username}: ${password}`);
   // };
   let history = useHistory();
+  const signIn = () => {
+    console.log('inside the method')
+    history.push('/user')
+  };
   return (
     <div>
       <FormControl  
@@ -56,6 +61,7 @@ export const LoginForm: React.FC = () => {
        <Button
           type="submit"
          variant="contained"
+         onClick={signIn}
          color="primary">
             Login
           </Button>
