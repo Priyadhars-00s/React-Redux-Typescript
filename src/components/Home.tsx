@@ -7,8 +7,9 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-
+import { DataGrid } from '@material-ui/data-grid';
 import React, { useEffect, useState } from 'react';
+import { TablePagination } from '@material-ui/core';
 interface IUser {
   name: [];
 }
@@ -17,10 +18,29 @@ const useStyles = makeStyles({
     minWidth: 300,
   },
 });
+
+
 export const APIForm: React.FC = () => {
-  const [employees, setEmployees] = useState([])
-  const [Test, setTest] = useState([])
   const [user, setUser] = useState<IUser>({name: []});
+  const [filterInput, setFilterInput] = useState("");
+  const handleFilterChange = (e:any) => {
+    const value = e.target.value || undefined;
+    
+    setFilterInput(value);  
+  };
+
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5)
+
+  const handleChangePage = (event:any, newPage:any) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event:any) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
 useEffect(() => {
 
     fetch('http://www.json-generator.com/api/json/get/bOUcubzASW?indent=2')
@@ -29,9 +49,16 @@ useEffect(() => {
       setUser({name: data.data})
       );
   }, [])
+
+ 
 const classes = useStyles();
 return (
     <div>
+      <input
+  value={filterInput}
+  onChange={handleFilterChange}
+  placeholder={"Search name"}
+/>
 
 <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
@@ -55,9 +82,28 @@ return (
             </TableRow>
           ))}
         </TableBody>
+        {/* <DataGrid
+        sortingOrder={['desc', 'asc']}
+        sortModel={[
+          {
+            field: 'employee_salary',
+            sort: 'asc',
+          },
+        ]}
+        {...user}
+      /> */}
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={user.name.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onChangePage={handleChangePage}
+          onChangeRowsPerPage={handleChangeRowsPerPage}
+        />
       </Table>
       </TableContainer>
-     
+   
      </div>
  
    )
