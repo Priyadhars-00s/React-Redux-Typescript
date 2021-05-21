@@ -1,11 +1,14 @@
-
-import Router from './Router'
-function App() {
+import "./App.css";
+import React from "react";
+import Routes from './Router'
+import { Provider } from "react-redux";
+import store from "./components/Redux/Stores";
+ const App: React.FC = (): JSX.Element => {
   return (
-    <div className="App">
-      <Router />
-    </div>
-  );
-}
-
-export default App;
+  <Provider store={store}>
+    <Routes />
+  </Provider>
+  
+);
+  };
+  export default App;

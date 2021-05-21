@@ -3,9 +3,8 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import {APIForm} from '../src/components/Home'
 import {LoginForm} from '../src/components/Login'
 
+const Routes: React.FC = (): JSX.Element => {
 
-class Routes extends React.Component{
-    render(){
         return(
             <Router>
                 <Switch>
@@ -16,5 +15,5 @@ class Routes extends React.Component{
             </Router>
         )
     }
-}
+
 export default Routes;
